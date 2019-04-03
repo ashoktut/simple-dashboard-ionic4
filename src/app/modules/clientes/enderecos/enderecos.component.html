@@ -1,0 +1,154 @@
+<ion-grid fixed #content>
+  <ion-row>
+    <ion-col size="12">
+      <ion-toolbar>
+        <ion-button color="success" slot="end" (click)="novoEndereco()">
+          Novo Endereço
+        </ion-button>
+        <ion-title *ngIf="formControl">{{ tituloPag }}</ion-title>
+      </ion-toolbar>
+    </ion-col>
+
+    <ion-col>
+      <ion-row>
+        <ion-col size="12">
+
+          <form class="form formularioEndereco" padding (ngSubmit)="submitEndereco()" [formGroup]="enderecoForm" *ngIf="formControl" #form>
+
+            <ion-row>
+              <ion-col size="12" sizeMd="3">
+                <ion-item>
+                  <ion-label position="floating">Cep:</ion-label>
+                  <ion-input type="text" required formControlName="cep" placeholder="Insira o cep"
+                    (ionBlur)="obterDadosEndereco()"></ion-input>
+                </ion-item>
+                <div *ngIf="enderecoForm.controls.cep.hasError('required') && submitted" class="hasError">
+                  Cep é obrigatório
+                </div>
+              </ion-col>
+              <ion-col size="12" sizeMd="6">
+                <ion-item>
+                  <ion-label position="floating">Endereço:</ion-label>
+                  <ion-input type="text" required formControlName="endereco" placeholder="Insira o endereço">
+                  </ion-input>
+                </ion-item>
+                <div *ngIf="enderecoForm.controls.endereco.hasError('required') && submitted" class="hasError">
+                  Endereço é obrigatório
+                </div>
+              </ion-col>
+              <ion-col size="6" sizeMd="3">
+                <ion-item>
+                  <ion-label position="floating">Número:</ion-label>
+                  <ion-input type="text" required formControlName="numero" #numero placeholder="Insira o numero">
+                  </ion-input>
+                </ion-item>
+                <div *ngIf="enderecoForm.controls.numero.hasError('required') && submitted" class="hasError">
+                  Número é obrigatório
+                </div>
+              </ion-col>
+              <ion-col size="6" sizeMd="3">
+                <ion-item>
+                  <ion-label position="floating">Complemento:</ion-label>
+                  <ion-input type="text" formControlName="complemento" placeholder="Insira o complemento"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="12" sizeMd="3">
+                <ion-item>
+                  <ion-label position="floating">Bairro:</ion-label>
+                  <ion-input type="text" required formControlName="bairro" placeholder="Insira o bairro"></ion-input>
+                </ion-item>
+                <div *ngIf="enderecoForm.controls.bairro.hasError('required') && submitted" class="hasError">
+                  Bairro é obrigatório
+                </div>
+              </ion-col>
+              <ion-col size="12" sizeMd="3">
+                <ion-item>
+                  <ion-label position="floating">Cidade:</ion-label>
+                  <ion-input type="text" required formControlName="cidade" placeholder="Insira a cidade"></ion-input>
+                </ion-item>
+                <div *ngIf="enderecoForm.controls.cidade.hasError('required') && submitted" class="hasError">
+                  Cidade é obrigatório
+                </div>
+              </ion-col>
+              <ion-col size="12" sizeMd="3">
+                <ion-item>
+                  <ion-label position="floating">Estado:</ion-label>
+                  <ion-input type="text" required formControlName="estado" placeholder="Insira o estado"></ion-input>
+                </ion-item>
+                <div *ngIf="enderecoForm.controls.estado.hasError('required') && submitted" class="hasError">
+                  <ion-list>
+                    <ion-list-header padding>
+                      <h3>Clientes</h3>
+                      <ion-button color="primary" (click)="getRelatorio()">
+                        <ion-icon name="print"></ion-icon>
+                      </ion-button>
+                      <ion-button color="primary" (click)="cadastrar()">
+                        Cadastrar Cliente
+                      </ion-button>
+                    </ion-list-header>
+
+                    <div style="text-align: center;">
+                      <ion-spinner *ngIf="loading === false" name="crescent"></ion-spinner>
+                      <span *ngIf="loading && clientes?.length == 0">
+                        Nenhum cliente encontrado
+                      </span>
+                    </div>
+
+                    <ion-item *ngFor="let cliente of clientes">
+                      {{ cliente.nome }}
+                      <ion-button slot="end" color="primary" (click)="editar(cliente.id)">Editar</ion-button>
+                    </ion-item>
+                  </ion-list> Estado é obrigatório
+                </div>
+              </ion-col>
+            </ion-row>
+
+            <div padding>
+              <ion-button type="submit">Salvar</ion-button>
+              <ion-button type="button" color="danger" *ngIf="btnExcluir" (click)="deletarEndereco(endereco.id)">Excluir
+              </ion-button>
+            </div>
+
+          </form>
+
+        </ion-col>
+      </ion-row>
+    </ion-col>
+
+  </ion-row>
+
+  <ion-row>
+    <ion-col>
+
+      <ion-list>
+        <div style="text-align: center;">
+          <ion-spinner *ngIf="loading === false" name="crescent"></ion-spinner>
+          <span *ngIf="loading && enderecos?.length == 0">
+            Nenhum endereço encontrado
+          </span>
+        </div>
+
+        <ion-card *ngFor="let endereco of enderecos">
+          <ion-card-header>
+            <ion-toolbar>
+              <ion-button slot="end" color="primary" (click)="obterEndereco(endereco.id)">
+                <ion-icon name="create"></ion-icon>
+              </ion-button>
+              <ion-button slot="end" color="warning" (click)="abrirEnderecoGoogle(endereco)">
+                <ion-icon name="pin"></ion-icon>
+              </ion-button>
+              <ion-card-title>{{ endereco.cep }}</ion-card-title>
+            </ion-toolbar>
+          </ion-card-header>
+          <ion-card-content>
+            {{ endereco.endereco }}, {{ endereco.numero }} - {{ endereco.complemento }} <br />
+            {{ endereco.bairro }} - {{ endereco.cidade }} - {{ endereco.estado }}
+          </ion-card-content>
+        </ion-card>
+
+      </ion-list>
+
+    </ion-col>
+  </ion-row>
+
+</ion-grid>

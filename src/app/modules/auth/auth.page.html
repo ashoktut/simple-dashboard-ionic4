@@ -1,0 +1,19 @@
+<div class="principal">
+
+  <div class="wrapper">
+    <ion-card class="login">
+      <form (ngSubmit)="validarAuth()" [formGroup]="authForm">
+        <ion-card-header style="text-align: center">
+          <ion-card-title>Tech Food</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-input type="text" class="input" formControlName="username" placeholder="Digite seu usuário" clearInput></ion-input>
+          <ion-input type="password" class="input" formControlName="password" placeholder="Digite sua senha" clearInput></ion-input>
+          <ion-button [disabled]="submitted" type="submit" color="primary" expand="full">Entrar</ion-button>
+        </ion-card-content>
+
+      </form>
+    </ion-card>
+  </div>
+
+</div>

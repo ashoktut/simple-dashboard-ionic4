@@ -9,3 +9,21 @@
 @import '~@ionic/angular/css/text-alignment.css';
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
+
+
+.form {
+    width: 100%;
+    margin: 0 auto;
+
+    .input {
+        margin-top: 10px; 
+    }
+}
+
+.hasError {
+    width: 100%;
+    color: #f00;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-left: 20px;
+}

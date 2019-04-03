@@ -1,20 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { DashboardPage } from './modules/dashboard/dashboard.page';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
-  {
-    path: 'home',
-    loadChildren: './home/home.module#HomePageModule'
-  },
-  {
-    path: 'list',
-    loadChildren: './list/list.module#ListPageModule'
-  }
+  { path: 'login', loadChildren: './modules/auth/auth.module#AuthPageModule' },
+  { path: 'dashboard', component: DashboardPage, loadChildren: './modules/dashboard/dashboard.module#DashboardPageModule' }
 ];
 
 @NgModule({

@@ -1,0 +1,78 @@
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="12">
+
+                <form class="form" padding (ngSubmit)="submitCliente()" [formGroup]="clienteForm">
+
+
+                    <ion-grid fixed>
+                        <ion-row>
+                            <ion-col size="12">
+                                <h2>{{ tituloPag }}</h2>
+                            </ion-col>
+                            <ion-col size="12" sizeMd="6">
+                                <ion-item>
+                                    <ion-label position="floating">Nome:</ion-label>
+                                    <ion-input type="text" required formControlName="nome" placeholder="Insira o nome">
+                                    </ion-input>
+                                </ion-item>
+                                <div *ngIf="clienteForm.controls.nome.hasError('required') && submitted"
+                                    class="hasError">
+                                    Nome é obrigatório
+                                </div>
+                            </ion-col>
+                            <ion-col size="12" sizeMd="6">
+                                <ion-item>
+                                    <ion-label position="floating">E-mail:</ion-label>
+                                    <ion-input type="email" required formControlName="email"
+                                        placeholder="Insira o email">
+                                    </ion-input>
+                                </ion-item>
+                                <div *ngIf="clienteForm.controls.email.hasError('required') && submitted"
+                                    class="hasError">
+                                    E-mail é obrigatório
+                                </div>
+                            </ion-col>
+                            <ion-col size="6">
+                                <ion-item>
+                                    <ion-label position="floating">Telefone1:</ion-label>
+                                    <ion-input type="text" required formControlName="telefone1"
+                                        placeholder="Insira o telefone1">
+                                    </ion-input>
+                                </ion-item>
+                                <div *ngIf="clienteForm.controls.telefone1.hasError('required') && submitted"
+                                    class="hasError">
+                                    Telefone1 é obrigatório
+                                </div>
+                            </ion-col>
+                            <ion-col size="6">
+                                <ion-item>
+                                    <ion-label position="floating">Telefone2:</ion-label>
+                                    <ion-input type="text" formControlName="telefone2" placeholder="Insira o telefone2">
+                                    </ion-input>
+                                </ion-item>
+                            </ion-col>
+
+                        </ion-row>
+                    </ion-grid>
+
+                    <div padding>
+                        <ion-button type="submit">Salvar</ion-button>
+                        <ion-button type="button" color="danger" *ngIf="btnExcluir" (click)="deletarCliente()">Excluir
+                        </ion-button>
+                    </div>
+
+                </form>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="12">
+                <app-enderecos *ngIf="btnExcluir"></app-enderecos>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+
+
+</ion-content>

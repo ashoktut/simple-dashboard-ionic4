@@ -1,0 +1,45 @@
+<ion-app>
+
+  <ion-toolbar style="position: fixed;" color="primary">
+
+    <ion-title slot="end" style="font-size: 12px;">Usuário: {{ usuarioNome }} | {{ dataHoje }}</ion-title>
+
+    <ion-title>Tech Food</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-split-pane style="margin-top: 60px;">
+    <ion-menu>
+      <ion-content>
+        <ion-list>
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]" >
+              <ion-icon slot="start" [name]="p.icon"></ion-icon>
+              <ion-label>
+                {{p.title}}
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false" style="cursor: pointer;">
+              <ion-item (click)="logout()">
+                <ion-icon slot="start" name="log-in"></ion-icon>
+                <ion-label>
+                  Sair
+                </ion-label>
+              </ion-item>
+            </ion-menu-toggle>          
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+
+    <ion-content main>
+      <ion-content padding>
+        <ion-router-outlet></ion-router-outlet>
+      </ion-content>
+
+    </ion-content>
+
+  </ion-split-pane>
+</ion-app>

@@ -1,0 +1,32 @@
+<ion-content>
+
+  <ion-searchbar animated placeholder="Digite nome, email ou telefone" [(ngModel)]="data" (change)="listarClientes()">
+  </ion-searchbar>
+
+  <ion-list>
+    <ion-list-header padding>
+      <h3>Clientes</h3>
+      <ion-button color="primary" (click)="getRelatorio()">
+        <ion-icon name="print"></ion-icon>
+      </ion-button>
+      <ion-button color="primary" (click)="cadastrar()">
+        Cadastrar Cliente
+      </ion-button>
+    </ion-list-header>
+
+    <div style="text-align: center;">
+      <ion-spinner *ngIf="loading === false" name="crescent"></ion-spinner>
+      <span *ngIf="loading && clientes?.length == 0">
+        Nenhum cliente encontrado
+      </span>
+    </div>
+
+    <ion-item *ngFor="let cliente of clientes">
+      {{ cliente.nome }}
+      <ion-button slot="end" color="primary" (click)="editar(cliente.id)">
+          <ion-icon name="create"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

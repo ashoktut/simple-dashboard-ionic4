@@ -1,0 +1,26 @@
+<ion-content>
+   
+    <ion-list>
+      <ion-list-header padding>
+        <h3>Usuário</h3>
+        <ion-button color="primary" (click)="cadastrar()">
+          Cadastrar Usuário
+        </ion-button> 
+      </ion-list-header>
+  
+      <div style="text-align: center;">
+        <ion-spinner *ngIf="loading === false" name="crescent"></ion-spinner>
+        <span *ngIf="loading && usuarios?.length == 0">
+          Nenhum usuário encontrado
+        </span>
+      </div>
+  
+      <ion-item *ngFor="let usuario of usuarios">
+        {{ usuario.nome }}
+        <ion-button slot="end" color="primary" (click)="editar(usuario.id)">
+            <ion-icon name="create"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  
+  </ion-content>
